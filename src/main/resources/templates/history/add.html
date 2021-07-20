@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание операции по ценной бумаге</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="commonPageHead"
+            th:text="${add} ? 'Создание операции по ценной бумаге.':'Редактирование операции по ценной бумаге.'"/>
+        <hr>
+        <a class="button" th:href="@{/history}">Назад</a>
+        <hr>
+        <form th:method="POST"
+              th:action="${add} ? @{/history} : @{/history/{id}/edit(id=${tradingHistory.id})}"
+              th:object="${tradingHistory}"
+              th:attr="onsubmit=|return validateHistoryForm()|">
+
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{securitiesInfo}"/>
+
+            <!-- SECID -->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('secid')}"
+                 th:errors="*{secid}">
+            </div>
+            <label hidden="true" id="secidError" style="color:red">
+                Неверно указан торговый код (не менее 4 латинских символов)
+            </label><br>
+            <label for="secid">Торговый код: </label><br />
+            <input type="text" th:readonly="${add} ? false:true" th:field="*{secid}" id = "secid"/><br />
+
+            <!-- TRADEDATE -->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('tradedate')}"
+                 th:errors="*{tradedate}">
+            </div>
+            <label hidden="true" id="tradedateError" style="color:red">
+               Указана неверная дата (формат: гггг-мм-дд)
+            </label><br>
+            <label for="tradedate">Дата операции: </label><br />
+            <input type="date" th:field="*{tradedate}" id = "tradedate"/><br />
+
+            <!-- NUMTRADES -->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('numtrades')}"
+                 th:errors="*{numtrades}">
+            </div>
+            <label hidden="true" id="numtradesError" style="color:red">
+                Неверно указано количество сделок за день
+            </label><br>
+            <label for="numtrades">Количество сделок за день</label><br />
+            <input type="text" th:field="*{numtrades}" id = "numtrades"/><br />
+
+            <!--OPEN-->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('open')}"
+                 th:errors="*{open}">
+            </div>
+            <label hidden="true" id="openError" style="color:red">
+                Неверно указана цена открытия.
+            </label><br>
+            <label for="open">
+               Цена откртия:
+            </label><br />
+            <input type="text" th:field="*{open}" id = "open" size="100"/><br />
+            <!--CLOSE-->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('close')}"
+                 th:errors="*{close}">
+            </div>
+            <label hidden="true" id="closeError" style="color:red">
+                Неверно указана цена открытия.
+            </label><br>
+            <label for="close">
+                Цена закрытия:
+            </label><br />
+            <input type="text" th:field="*{close}" id = "close" size="100"/><br /><br />
+
+            <input type="submit" th:value="${add} ? 'Создать' : 'Обновить'">
+
+        </form>
+    </div>
+</body>
+</html>

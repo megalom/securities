@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация об операции.</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="commonPageHead">Информация об операции.</h2>
+        <hr>
+        <a class="button" th:href="@{/history}">Назад</a>
+        <hr>
+
+        <div th:if="${tradingHistory}">
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>:</td>
+                    <td th:utext="${tradingHistory.id}"></td>
+                </tr>
+                <tr>
+                    <td>Торговый код</td>
+                    <td>:</td>
+                    <td th:utext="${tradingHistory.secid}"></td>
+                </tr>
+                <tr>
+                    <td>Дата операции</td>
+                    <td>:</td>
+                    <td th:utext="${#dates.format(tradingHistory.tradedate,'yyyy-MM-dd')}"/>
+                </tr>
+                <tr>
+                    <td>Количество сделок за день:</td>
+                    <td>:</td>
+                    <td th:utext="${tradingHistory.numtrades}"></td>
+                </tr>
+                <tr>
+                    <td>Цена открытия</td>
+                    <td>:</td>
+                    <td th:utext="${tradingHistory.open}"></td>
+                </tr>
+                <tr>
+                    <td>Цена закрытия</td>
+                    <td>:</td>
+                    <td th:utext="${tradingHistory.close}"></td>
+                </tr>
+            </table>
+
+            <hr>
+            <div>
+                <nobr>
+                    <a class="button"
+                       th:href="@{/history/{id}/edit(id=${tradingHistory.id})}"
+                       th:text="'Редактировать'"/> |
+                    <a class="button"
+                       th:href="@{/history/{id}/delete(id=${tradingHistory.id})}"
+                       th:text="'Удалить'"/>
+                </nobr>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

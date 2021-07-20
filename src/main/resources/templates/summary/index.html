@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сводная информация.</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="commonPageHead">Сводная информация.</h2>
+        <hr>
+
+        <div>
+            <nobr>
+                <a class="button" th:href="@{/}">Назад</a>
+            </nobr>
+        </div>
+        <hr>
+        <div align="center">
+            <a th:href="@{/summary?page={p}(p=${currentPage-pagesLimit})}">&lt;</a>
+            &nbsp;
+            <a th:each="page:${#numbers.sequence(pageStart,pageEnd,1)}"
+               th:text="${page+' '}"
+               th:href="@{/summary?page={p}(p=${page})}"
+              />
+            &nbsp;
+            <a th:href="@{/summary?page={p}(p=${currentPage+pagesLimit})}">&gt;</a>
+
+        </div>
+        <table id="commonTable">
+            <thead>
+                <tr>
+                    <th>Торговый код</th>
+                    <th>Регистрационный номер</th>
+                    <th>Наименование ценной бумаги</th>
+                    <th>Наименование эмитента</th>
+                    <th>Дата торгов</th>
+                    <th>Количество сделок за день</th>
+                    <th>Цена открытия</th>
+                    <th>Цена закрытия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="history:${tradingHistories}">
+                    <td th:text="${history.secid}"/>
+                    <td th:text="${history.securitiesInfo.regnumber}"/>
+                    <td th:text="${history.securitiesInfo.name}"/>
+                    <td th:text="${history.securitiesInfo.emitentTitle}"/>
+                    <td th:text="${#dates.format(history.tradedate,'yyyy-MM-dd')}"/>
+                    <td th:text="${history.numtrades}"/>
+                    <td th:text="${history.open}"/>
+                    <td th:text="${history.close}"/>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</body>
+</html>

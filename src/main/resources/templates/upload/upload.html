@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Импорт данных из XML файла.</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+<div class="container">
+    <h2 class="commonPageHead">Загрузка информации о ценных бумагах или истории торгов из файла.</h2>
+    <hr>
+
+    <div>
+        <nobr>
+            <a class="button" th:href="@{/}">Назад</a>
+        </nobr>
+    </div>
+    <br>
+    <div hidden="true" id="LoadInfo">
+        Идет загрузка...
+    </div>
+    <form id="LoadFileForm" method="POST" enctype="multipart/form-data" action="/upload">
+        Файл для иморта: <br/>
+        <input type="file" name="file"><br/>
+        <br/>
+        Нажмите здесь для загрузки файла</br>
+        <input type="submit" onclick="loadInfo()" value="Upload">
+    </form>
+</div>
+</body>
+</html>

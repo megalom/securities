@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание ценной бумаги</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="commonPageHead" th:text="${add} ? 'Создание ценной бумаги.':'Редактирование информации о ценной бумаге.'"/>
+        <hr>
+        <a class="button" th:href="@{/securities}">Назад</a>
+        <hr>
+        <form th:method="POST"
+              th:action="${add} ? @{/securities} : @{/securities/{id}/edit(id=${securities.id})}"
+              th:object="${securities}"
+                th:attr="onsubmit=|return validateSecuritiesForm()|">
+
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{tradingHistory}"/>
+
+            <!-- SECID -->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('secid')}"
+                 th:errors="*{secid}">
+            </div>
+            <label hidden="true" id="secidError" style="color:red">
+                Неверно указан торговый код (не менее 4 латинских символов)
+            </label><br>
+            <label for="secid">Торговый код: </label><br />
+            <input type="text" th:readonly="${add} ? false:true" th:field="*{secid}" id = "secid"/><br />
+
+            <!-- REGNUMBER -->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('regnumber')}"
+                 th:errors="*{regnumber}">
+            </div>
+            <label hidden="true" id="regnumberError" style="color:red">Неверно указан регистрационный номер (должен быть вида 1-11-11111-A)</label><br>
+            <label for="regnumber">Регистрационный номер: </label><br />
+            <input type="text" th:field="*{regnumber}" id = "regnumber"/><br />
+
+            <!-- NAME -->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}">
+            </div>
+            <label hidden="true" id="nameError" style="color:red">
+                Неверно указано наименование ценной бумаги
+            </label><br>
+            <label for="name">Наименование ценной бумаги</label><br />
+            <input type="text" th:field="*{name}" id = "name"/><br />
+
+            <!-- EMITENT TITLE -->
+            <div class="alert"
+                 th:if="${#fields.hasErrors('emitentTitle')}"
+                 th:errors="*{emitentTitle}">
+            </div>
+            <label hidden="true" id="emitentTitleError" style="color:red">
+                Неверно указано наименование эмитента.
+            </label><br>
+            <label for="emitentTitle">
+                Полное фирменное наименование/наименование эмитента, управляющей компании,
+                управляющего ипотечным покрытием:
+            </label><br />
+            <input type="text" th:field="*{emitentTitle}" id = "emitentTitle" size="100"/><br /><br />
+
+            <input type="submit" th:value="${add} ? 'Создать' : 'Обновить'">
+
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>История торгов.</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="commonPageHead">История торгов за произвольную дату.</h2>
+        <hr>
+
+        <div>
+            <nobr>
+                <a class="button" th:href="@{/history/add}" th:text="'Добавить'"/> |
+                <a class="button" th:href="@{/}">Назад</a>
+            </nobr>
+        </div>
+        <hr>
+        <table id="commonTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Торговый код</th>
+                <th>Дата операции</th>
+                <th>Количество сделок за день</th>
+                <th>Цена открытия</th>
+                <th>Цена закрытия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="history:${tradingHistories}"
+                th:attr="onclick=|goto('@{/history/{id}(id=${history.id})}')|">
+                <td th:text="${history.id}"/>
+                <td th:text="${history.secid}"/>
+                <td th:text="${#dates.format(history.tradedate,'yyyy-MM-dd')}"/>
+                <td th:text="${history.numtrades}"/>
+                <td th:text="${history.open}"/>
+                <td th:text="${history.close}"/>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

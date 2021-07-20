@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о ценной бумаге</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="commonPageHead">Информация о ценной бумаге.</h2>
+        <hr>
+        <a class="button" th:href="@{/securities}">Назад</a>
+        <hr>
+
+        <div th:if="${securitiesInfo}">
+            <table>
+                <tr>
+                    <td>ID</td>
+                    <td>:</td>
+                    <td th:utext="${securitiesInfo.id}"></td>
+                </tr>
+                <tr>
+                    <td>SECID</td>
+                    <td>:</td>
+                    <td th:utext="${securitiesInfo.secid}"></td>
+                </tr>
+                <tr>
+                    <td>REGNUMBER</td>
+                    <td>:</td>
+                    <td th:utext="${securitiesInfo.regnumber}"></td>
+                </tr>
+                <tr>
+                    <td>NAME</td>
+                    <td>:</td>
+                    <td th:utext="${securitiesInfo.name}"></td>
+                </tr>
+                <tr>
+                    <td>EMITENT TITLE</td>
+                    <td>:</td>
+                    <td th:utext="${securitiesInfo.emitentTitle}"></td>
+                </tr>
+            </table>
+
+            <hr>
+            <div>
+                <nobr>
+                    <a class="button"
+                       th:href="@{/securities/{id}/edit(id=${securitiesInfo.id})}"
+                       th:text="'Редактировать'"/> |
+                    <a class="button"
+                       th:href="@{/securities/{id}/delete(id=${securitiesInfo.id})}"
+                       th:text="'Удалить'"/>
+                </nobr>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

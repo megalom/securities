@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о ценных бумагах и торгах.</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <h2 class="commonPageHead" th:text="'Информация о ценных бумагах и торгах.'"/>
+    <hr>
+    <a class="button" th:href="@{/securities}">Информация о ценных бумагах</a>|
+    <a class="button" th:href="@{/history}">История торгов за произвольную дату</a>|
+    <a class="button" th:href="@{/upload}">Импорт информации из xml файла</a>
+    <a class="button" th:href="@{/summary}">Сводные данные</a><br/>
+
+    <hr>
+    <div class = "container">
+        В данном проекте используется Spring Boot(Web, Data, шаблонизатор Thymeleaf).<br/>
+        Выбрана СУБД H2 для простоты запуска приложения.<br/>
+        Для парсинга XML используется библиотека Jackson.<br/>
+
+        <h3>REST API</h3>
+        Протестировать можно через curl либо через Postman.
+        <br/><br/>
+        Securities:
+        <br/><br/>
+        GET:<br/>
+        curl http://localhost:8080/api/securities<br/>
+        curl http://localhost:8080/api/securities/1<br/>
+        <br/><br/>
+        POST:<br/>
+        curl -X POST http://localhost:8080/api/securities -H "Content-Type: application/xml" -H "Accept: application/xml" -d "&lt;securities&gt;&lt;id&gt;10&lt;/id&gt;&lt;secid&gt;SECD&lt;/secid&gt;&lt;regnumber&gt;1-01-07335-A&lt;/regnumber&gt;&lt;name&gt;Walt&lt;/name&gt;&lt;emitentTitle&gt;Disney&lt;/emitentTitle&gt;&lt;/securities&gt;"<br/>
+        <br/><br/>
+        PUT:<br/>
+        curl -X PUT http://localhost:8080/api/securities -H "Content-Type: application/xml" -H "Accept: application/xml" -d "&lt;securities&gt;&lt;id&gt;10&lt;/id&gt;&lt;secid&gt;SECD&lt;/secid&gt;&lt;regnumber&gt;1-01-07335-A&lt;/regnumber&gt;&lt;name&gt;WaltY&lt;/name&gt;&lt;emitentTitle&gt;Disney&lt;/emitentTitle&gt;&lt;/securities&gt;"<br/>
+        <br/><br/>
+        DELETE:<br/>
+        curl -X DELETE http://localhost:8080/api/securities/1<br/>
+        <br/><br/>
+        Trading History:
+        <br/><br/>
+        GET:<br/>
+        curl http://localhost:8080/api/history<br/>
+        curl http://localhost:8080/api/history/1<br/>
+        <br/><br/>
+        POST:<br/>
+        curl -X POST http://localhost:8080/api/history -H "Content-Type: application/xml" -H "Accept: application/xml" -d "&lt;history&gt;&lt;id&gt;1&lt;/id&gt;&lt;secid&gt;AAPL&lt;/secid&gt;&lt;tradedate&gt;2021-03-21&lt;/tradedate&gt;&lt;numtrades&gt;3.0&lt;/numtrades&gt;&lt;open&gt;0.0&lt;/open&gt;&lt;close&gt;1.0&lt;/close&gt;&lt;/history&gt;"<br/>
+        <br/><br/>
+        PUT:<br/>
+        curl -X PUT http://localhost:8080/api/history -H "Content-Type: application/xml" -H "Accept: application/xml" -d "&lt;history&gt;&lt;id&gt;1&lt;/id&gt;&lt;secid&gt;AAPL&lt;/secid&gt;&lt;tradedate&gt;2019-01-22&lt;/tradedate&gt;&lt;numtrades&gt;2.0&lt;/numtrades&gt;&lt;open&gt;0.0&lt;/open&gt;&lt;close&gt;1.0&lt;/close&gt;&lt;/history&gt;"<br/>
+        <br/><br/>
+        DELETE:<br/>
+        curl -X DELETE http://localhost:8080/api/history/1<br/>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о ценных бумагах.</title>
+    <link rel="stylesheet" th:href="@{/css/simpleStyle.css}"/>
+    <script type = "text/javascript" th:src="@{/js/util.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="commonPageHead">Информация о ценных бумагах.</h2>
+        <hr>
+
+        <div>
+            <nobr>
+                <a class="button" th:href="@{/securities/add}" th:text="'Добавить'"/> |
+                <a class="button" th:href="@{/}">Назад</a>
+            </nobr>
+        </div>
+        <hr>
+
+        <table id="commonTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Торговый код</th>
+                    <th>Регистрационный номер</th>
+                    <th>Наименование ценной бумаги</th>
+                    <th>Наименование эмитента</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="securities:${securitiesInfos}"
+                    th:attr="onclick=|goto('@{/securities/{id}(id=${securities.id})}')|">
+                    <td th:text="${securities.id}"/>
+                    <td th:text="${securities.secid}"/>
+                    <td th:text="${securities.regnumber}"/>
+                    <td th:text="${securities.name}"/>
+                    <td th:text="${securities.emitentTitle}"/>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</body>
+</html>

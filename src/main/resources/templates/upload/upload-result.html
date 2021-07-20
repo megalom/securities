@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о ценных бумагах и торгах.</title>
+</head>
+<body>
+
+<a th:href="@{/}">Назад</a>
+
+<th:block th:if="${isSuccessful}">
+    <p th:text="'Загружено успешно.'"/><br>
+    <p th:text="'Всего загружено записей: ' + ${recordsCount}"/><br/>
+    <p th:text="'Замечания при загрузке: '"/><br/>
+    <p th:each="error:${errors}" th:text="${error}"/>
+</th:block>
+
+<th:block th:if="${not isSuccessful}" >
+    <p th:text="'Ошибка загрузки.'"/>
+</th:block>
+
+
+
+</body>
+</html>
