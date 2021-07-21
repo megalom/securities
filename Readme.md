@@ -21,6 +21,7 @@ Securities:
 
 GET:
 curl http://localhost:8080/api/securities
+
 curl http://localhost:8080/api/securities/1
 
 POST:
@@ -36,6 +37,7 @@ Trading History:
 
 GET:
 curl http://localhost:8080/api/history
+
 curl http://localhost:8080/api/history/1
 
 POST:
